@@ -179,7 +179,7 @@ public class DatePicker extends FrameLayout {
         root.addView(this);
     }
 
-    void init(int year, int monthOfYear, int dayOfMonth,
+    public void init(int year, int monthOfYear, int dayOfMonth,
               boolean isDayShown, OnDateChangedListener onDateChangedListener) {
         mIsDayShown = isDayShown;
         setDate(year, monthOfYear, dayOfMonth);
@@ -188,7 +188,7 @@ public class DatePicker extends FrameLayout {
         notifyDateChanged();
     }
 
-    void updateDate(int year, int month, int dayOfMonth) {
+    public void updateDate(int year, int month, int dayOfMonth) {
         if (!isNewDate(year, month, dayOfMonth)) {
             return;
         }
@@ -197,19 +197,19 @@ public class DatePicker extends FrameLayout {
         notifyDateChanged();
     }
 
-    int getYear() {
+    public int getYear() {
         return mCurrentDate.get(Calendar.YEAR);
     }
 
-    int getMonth() {
+    public int getMonth() {
         return mCurrentDate.get(Calendar.MONTH);
     }
 
-    int getDayOfMonth() {
+    public int getDayOfMonth() {
         return mCurrentDate.get(Calendar.DAY_OF_MONTH);
     }
 
-    void setMinDate(long minDate) {
+    public void setMinDate(long minDate) {
         mTempDate.setTimeInMillis(minDate);
         if (mTempDate.get(Calendar.YEAR) == mMinDate.get(Calendar.YEAR)
                 && mTempDate.get(Calendar.DAY_OF_YEAR) == mMinDate.get(Calendar.DAY_OF_YEAR)) {
@@ -223,7 +223,7 @@ public class DatePicker extends FrameLayout {
         updateSpinners();
     }
 
-    void setMaxDate(long maxDate) {
+    public void setMaxDate(long maxDate) {
         mTempDate.setTimeInMillis(maxDate);
         if (mTempDate.get(Calendar.YEAR) == mMaxDate.get(Calendar.YEAR)
                 && mTempDate.get(Calendar.DAY_OF_YEAR) == mMaxDate.get(Calendar.DAY_OF_YEAR)) {
@@ -266,7 +266,7 @@ public class DatePicker extends FrameLayout {
      *
      * @param locale The current locale.
      */
-    protected void setCurrentLocale(Locale locale) {
+    public void setCurrentLocale(Locale locale) {
         mTempDate = getCalendarForLocale(mTempDate, locale);
         mMinDate = getCalendarForLocale(mMinDate, locale);
         mMaxDate = getCalendarForLocale(mMaxDate, locale);
@@ -373,7 +373,7 @@ public class DatePicker extends FrameLayout {
                 || mCurrentDate.get(Calendar.DAY_OF_MONTH) != dayOfMonth);
     }
 
-    private void setDate(int year, int month, int dayOfMonth) {
+    public void setDate(int year, int month, int dayOfMonth) {
         mCurrentDate.set(year, month, dayOfMonth);
         if (mCurrentDate.before(mMinDate)) {
             mCurrentDate.setTimeInMillis(mMinDate.getTimeInMillis());
@@ -382,7 +382,7 @@ public class DatePicker extends FrameLayout {
         }
     }
 
-    private void updateSpinners() {
+    public void updateSpinners() {
         // set the spinner ranges respecting the min and max dates
         mDaySpinner.setVisibility(mIsDayShown ? View.VISIBLE : View.GONE);
         if (mCurrentDate.equals(mMinDate)) {
@@ -437,7 +437,7 @@ public class DatePicker extends FrameLayout {
     /**
      * Notifies the listener, if such, for a change in the selected date.
      */
-    private void notifyDateChanged() {
+    public void notifyDateChanged() {
         sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);
         if (mOnDateChangedListener != null) {
             mOnDateChangedListener.onDateChanged(this, getYear(), getMonth(),
